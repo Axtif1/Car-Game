@@ -6,11 +6,11 @@ export class RoomManager {
     this.playerToRoom = new Map();
 
     // Create a default public room on boot so players can jump right in
-    this.createRoom('Public City Circuit #1', 'SERVER_BOT', false);
+    this.createRoom('Public City Circuit #1', 'SERVER_BOT', false, 3, 'city', 'public_1');
   }
 
-  createRoom(name, hostId, isPrivate = false, totalLaps = 3, trackId = 'city') {
-    const roomId = `room_${Math.random().toString(36).substring(2, 8)}`;
+  createRoom(name, hostId, isPrivate = false, totalLaps = 3, trackId = 'city', customRoomId = null) {
+    const roomId = customRoomId || `room_${Math.random().toString(36).substring(2, 8)}`;
     const room = new Room(roomId, name || `Race Lobby ${Math.floor(Math.random() * 900 + 100)}`, hostId, isPrivate, totalLaps, undefined, trackId);
     this.rooms.set(roomId, room);
     return room;
@@ -21,9 +21,6 @@ export class RoomManager {
   }
 
   joinRoom(roomIdOrCode, socket, user) {
-    // Leave previous room if any
-    this.leaveCurrentRoom(socket.id);
-
     let room = this.rooms.get(roomIdOrCode);
     if (!room) {
       for (const r of this.rooms.values()) {
@@ -34,6 +31,14 @@ export class RoomManager {
       }
     }
     if (!room) return { success: false, message: 'Room not found. Please check your Room Code or ID.' };
+
+    // If player is already in this exact room, don't leave and re-join
+    if (this.playerToRoom.get(socket.id) === room.id) {
+      return { success: true, room };
+    }
+
+    // Leave previous room if any
+    this.leaveCurrentRoom(socket.id);
 
     const joined = room.addPlayer(socket, user);
     if (!joined) return { success: false, message: 'Room is full.' };
@@ -49,7 +54,7 @@ export class RoomManager {
     const room = this.rooms.get(roomId);
     if (room) {
       room.removePlayer(socketId);
-      if (room.players.size === 0 && roomId !== 'public_1') {
+      if (room.players.size === 0 && roomId !== 'public_1' && room.name !== 'Public City Circuit #1') {
         this.rooms.delete(roomId);
       }
     }

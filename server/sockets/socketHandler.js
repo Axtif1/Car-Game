@@ -32,6 +32,13 @@ export function setupSocketHandlers(io, socket) {
         room.addAIBots(addBots);
       }
       socket.emit(SOCKET_EVENTS.ROOM_JOINED, { room: { id: room.id, code: room.code, name: room.name, hostId: room.hostId, totalLaps: room.totalLaps, trackId: room.trackId } });
+      
+      // Auto-start for Quick Race and Single Player modes
+      if (name === 'Quick City Sprint' || name === 'Single Player Championship' || name === 'Quick Match') {
+        setTimeout(() => {
+          room.startSimulation();
+        }, 300);
+      }
     }
   });
 
