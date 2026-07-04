@@ -42,7 +42,7 @@ export class Room {
       id: socket.id,
       username: user.username,
       avatar: user.avatar || '/avatars/avatar1.png',
-      isReady: socket.id === this.hostId, // Host is ready by default
+      isReady: true, // All players are ready by default when joining
       carCategory: user.garage?.carType || carCategory,
       isAI: false
     });
@@ -163,15 +163,11 @@ export class Room {
   }
 
   checkReadyToStart() {
-    const humanPlayers = Array.from(this.players.values()).filter(p => !p.isAI);
-    const unreadyPlayers = humanPlayers.filter(p => !p.isReady);
-    if (unreadyPlayers.length > 0) {
-      const names = unreadyPlayers.map(p => p.username).join(', ');
-      return {
-        success: false,
-        message: `⚠️ Cannot start race! The following players are NOT ready: ${names}`
-      };
+    // Automatically ready up all players when host starts the race so it launches smoothly without blocking
+    for (const player of this.players.values()) {
+      player.isReady = true;
     }
+    this.broadcastRoomState();
     return { success: true };
   }
 
