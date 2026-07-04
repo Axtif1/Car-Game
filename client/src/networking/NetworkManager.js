@@ -25,8 +25,11 @@ export class NetworkManager {
     this.socket = io(serverUrl, {
       auth: { token: this.token, username },
       reconnection: true,
-      reconnectionAttempts: 10,
-      reconnectionDelay: 1000
+      reconnectionAttempts: 20,
+      reconnectionDelay: 1000,
+      timeout: 60000,
+      transports: ['websocket', 'polling'],
+      upgrade: true
     });
 
     this.setupListeners();

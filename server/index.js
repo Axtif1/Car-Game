@@ -144,8 +144,9 @@ const io = new Server(server, {
     origin: '*',
     methods: ['GET', 'POST']
   },
-  pingTimeout: 10000,
-  pingInterval: 5000
+  pingTimeout: 60000,
+  pingInterval: 25000,
+  transports: ['websocket', 'polling']
 });
 
 // Connect database
