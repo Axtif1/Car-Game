@@ -204,6 +204,31 @@ export class SoundManager {
     osc.start();
     osc.stop(this.ctx.currentTime + 0.05);
   }
+
+  playClick() {
+    this.playUIClick();
+  }
+
+  playLapComplete() {
+    if (!this.isInitialized || !this.ctx || this.isMuted) return;
+    // Triumphant 4-note arpeggio (C5 - E5 - G5 - C6)
+    const notes = [523.25, 659.25, 783.99, 1046.50];
+    notes.forEach((freq, idx) => {
+      const osc = this.ctx.createOscillator();
+      const gain = this.ctx.createGain();
+      osc.type = 'triangle';
+      osc.frequency.setValueAtTime(freq, this.ctx.currentTime + idx * 0.1);
+
+      gain.gain.setValueAtTime(0, this.ctx.currentTime + idx * 0.1);
+      gain.gain.linearRampToValueAtTime(0.25, this.ctx.currentTime + idx * 0.1 + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + idx * 0.1 + 0.25);
+
+      osc.connect(gain);
+      gain.connect(this.masterGain);
+      osc.start(this.ctx.currentTime + idx * 0.1);
+      osc.stop(this.ctx.currentTime + idx * 0.1 + 0.25);
+    });
+  }
 }
 
 export const soundManager = new SoundManager();
