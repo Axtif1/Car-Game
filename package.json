@@ -1,7 +1,7 @@
 {
-  "name": "3d-multiplayer-car-racing-game",
+  "name": "nitrorush",
   "version": "1.0.0",
-  "description": "Production-quality 3D Multiplayer Car Racing Game built with Three.js, Rapier Physics, Socket.IO, Express, and Vanilla ES6 Modules.",
+  "description": "NitroRush - Production-quality 3D Multiplayer Car Racing Game built with Three.js, Rapier Physics, Socket.IO, Express, and Vanilla ES6 Modules.",
   "type": "module",
   "scripts": {
     "dev": "concurrently \"node --watch server/index.js\" \"vite client --port 5173\"",

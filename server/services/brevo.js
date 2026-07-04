@@ -4,8 +4,8 @@
  */
 export async function sendBrevoWelcomeEmail(email, name) {
   const apiKey = process.env.BREVO_API_KEY;
-  const senderEmail = process.env.BREVO_SENDER_EMAIL || 'noreply@citydomination3d.com';
-  const senderName = 'Apex Velocity 3D Racing';
+  const senderEmail = process.env.BREVO_SENDER_EMAIL || 'noreply@nitrorush.com';
+  const senderName = 'NitroRush 3D Racing';
 
   if (!apiKey || apiKey === 'your_brevo_api_key_here') {
     console.log(`📧 [Brevo Email Service] Simulated Welcome Email to ${email} (${name}). Configure BREVO_API_KEY in .env to send real transactional emails.`);
@@ -15,8 +15,8 @@ export async function sendBrevoWelcomeEmail(email, name) {
   const htmlContent = `
     <div style="font-family: 'Outfit', Arial, sans-serif; background-color: #050812; color: #ffffff; padding: 30px; border-radius: 12px; border: 2px solid #00ffff; max-width: 600px; margin: 0 auto;">
       <div style="text-align: center; margin-bottom: 20px;">
-        <h1 style="color: #00ffff; font-size: 28px; margin: 0;">CITY <span style="color: #ff2a2a;">DOMINATION</span></h1>
-        <p style="color: #a0a6be; font-size: 14px;">APEX VELOCITY 3D // MULTIPLAYER RACING</p>
+        <h1 style="color: #00ffff; font-size: 28px; margin: 0;">NITRO <span style="color: #ff2a2a;">RUSH</span></h1>
+        <p style="color: #a0a6be; font-size: 14px;">NITRORUSH // MULTIPLAYER RACING</p>
       </div>
       <div style="background-color: rgba(255, 255, 255, 0.05); padding: 20px; border-radius: 8px; margin-bottom: 20px;">
         <h2 style="color: #ffbd00; margin-top: 0;">Welcome to the Starting Grid, ${name}! 🏁</h2>
@@ -31,7 +31,7 @@ export async function sendBrevoWelcomeEmail(email, name) {
         <a href="http://localhost:5173" style="background: linear-gradient(135deg, #00ffff, #0088ff); color: #050812; font-weight: bold; text-decoration: none; padding: 14px 28px; border-radius: 8px; font-size: 16px; display: inline-block;">ENTER THE LOBBY NOW</a>
       </div>
       <div style="border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 15px; font-size: 12px; color: #70758a; text-align: center;">
-        Apex Velocity 3D Authoritative Server // Sent via Brevo Email Pipeline
+        NitroRush 3D Authoritative Server // Sent via Brevo Email Pipeline
       </div>
     </div>
   `;
@@ -47,7 +47,7 @@ export async function sendBrevoWelcomeEmail(email, name) {
       body: JSON.stringify({
         sender: { name: senderName, email: senderEmail },
         to: [{ email, name }],
-        subject: `🏁 Welcome to City Domination 3D Racing, ${name}!`,
+        subject: `🏁 Welcome to NitroRush 3D Racing, ${name}!`,
         htmlContent
       })
     });
@@ -69,8 +69,8 @@ export async function sendBrevoWelcomeEmail(email, name) {
 
 export async function sendBrevoOTPEmail(email, name, otpCode) {
   const apiKey = process.env.BREVO_API_KEY;
-  const senderEmail = process.env.BREVO_SENDER_EMAIL || 'noreply@citydomination3d.com';
-  const senderName = 'Apex Velocity 3D Racing';
+  const senderEmail = process.env.BREVO_SENDER_EMAIL || 'noreply@nitrorush.com';
+  const senderName = 'NitroRush 3D Racing';
 
   if (!apiKey || apiKey === 'your_brevo_api_key_here') {
     console.log(`📧 [Brevo OTP Simulation] Your Verification Code for ${email} is: ${otpCode}`);
@@ -80,7 +80,7 @@ export async function sendBrevoOTPEmail(email, name, otpCode) {
   const htmlContent = `
     <div style="font-family: 'Outfit', Arial, sans-serif; background-color: #050812; color: #ffffff; padding: 30px; border-radius: 12px; border: 2px solid #00ffff; max-width: 600px; margin: 0 auto;">
       <div style="text-align: center; margin-bottom: 20px;">
-        <h1 style="color: #00ffff; font-size: 28px; margin: 0;">CITY <span style="color: #ff2a2a;">DOMINATION</span></h1>
+        <h1 style="color: #00ffff; font-size: 28px; margin: 0;">NITRO <span style="color: #ff2a2a;">RUSH</span></h1>
         <p style="color: #a0a6be; font-size: 14px;">DRIVER ID VERIFICATION</p>
       </div>
       <div style="background-color: rgba(255, 255, 255, 0.05); padding: 25px; border-radius: 8px; margin-bottom: 20px; text-align: center;">
@@ -96,7 +96,7 @@ export async function sendBrevoOTPEmail(email, name, otpCode) {
         </p>
       </div>
       <div style="border-top: 1px solid rgba(255, 255, 255, 0.1); padding-top: 15px; font-size: 12px; color: #70758a; text-align: center;">
-        Apex Velocity 3D Authoritative Security System // Brevo Cloud Pipeline
+        NitroRush 3D Authoritative Security System // Brevo Cloud Pipeline
       </div>
     </div>
   `;
@@ -112,7 +112,7 @@ export async function sendBrevoOTPEmail(email, name, otpCode) {
       body: JSON.stringify({
         sender: { name: senderName, email: senderEmail },
         to: [{ email, name }],
-        subject: `🔑 ${otpCode} is your Apex Velocity 3D Verification Code`,
+        subject: `🔑 ${otpCode} is your NitroRush 3D Verification Code`,
         htmlContent
       })
     });

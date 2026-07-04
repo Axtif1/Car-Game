@@ -37,7 +37,7 @@ class RacingApp {
   }
 
   async init() {
-    this.ui.updateLoadingProgress(15, 'Booting Apex Velocity 3D Graphics Engine...');
+    this.ui.updateLoadingProgress(15, 'Booting NitroRush 3D Graphics Engine...');
     await new Promise(r => setTimeout(r, 350));
 
     this.postProcessor = new PostProcessor(this.engine);
