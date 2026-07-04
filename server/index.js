@@ -160,7 +160,7 @@ io.on('connection', (socket) => {
 });
 
 // Serve built frontend static files in production
-const distPath = path.join(__dirname, '../dist');
+const distPath = path.join(__dirname, '../client/dist');
 app.use(express.static(distPath));
 
 app.get('*', (req, res) => {
