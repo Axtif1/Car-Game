@@ -28,7 +28,7 @@ export class NetworkManager {
       reconnectionAttempts: 20,
       reconnectionDelay: 1000,
       timeout: 60000,
-      transports: ['websocket', 'polling'],
+      transports: ['polling', 'websocket'],
       upgrade: true
     });
 

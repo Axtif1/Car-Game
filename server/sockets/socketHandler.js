@@ -171,8 +171,8 @@ export function setupSocketHandlers(io, socket) {
   });
 
   // Disconnect handler
-  socket.on('disconnect', () => {
-    console.log(`❌ [Socket] Client disconnected: ${socket.id}`);
+  socket.on('disconnect', (reason) => {
+    console.log(`❌ [Socket] Client disconnected: ${socket.id} (${socket.user?.username || 'Unknown'}) | Reason: ${reason}`);
     roomManager.leaveCurrentRoom(socket.id);
     validator.removePlayer(socket.id);
   });
