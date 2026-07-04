@@ -20,9 +20,9 @@ export class NetworkManager {
   }
 
   connect(username = 'Guest_Racer') {
-    const serverUrl = window.location.hostname === 'localhost' ? 'http://localhost:3000' : '';
+    const serverUrl = window.location.hostname === 'localhost' ? 'http://localhost:3000' : window.location.origin;
     
-    this.socket = io(serverUrl || 'http://localhost:3000', {
+    this.socket = io(serverUrl, {
       auth: { token: this.token, username },
       reconnection: true,
       reconnectionAttempts: 10,

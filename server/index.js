@@ -1,6 +1,11 @@
 import http from 'http';
 import express from 'express';
 import cors from 'cors';
+import path from 'path';
+import { fileURLToPath } from 'url';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 import { Server } from 'socket.io';
 import dotenv from 'dotenv';
 import { dbManager } from './database/db.js';
@@ -152,6 +157,16 @@ io.use(socketAuthMiddleware);
 // Handle connections
 io.on('connection', (socket) => {
   setupSocketHandlers(io, socket);
+});
+
+// Serve built frontend static files in production
+const distPath = path.join(__dirname, '../dist');
+app.use(express.static(distPath));
+
+app.get('*', (req, res) => {
+  if (!req.path.startsWith('/api') && !req.path.startsWith('/socket.io')) {
+    res.sendFile(path.join(distPath, 'index.html'));
+  }
 });
 
 const PORT = process.env.PORT || 3000;
