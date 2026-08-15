@@ -1,0 +1,19 @@
+services:
+  - type: web
+    name: nitrorush
+    env: node
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    envVars:
+      - key: NODE_VERSION
+        value: ~20.10.0
+      - key: JWT_SECRET
+        generateValue: true
+      # You will need to manually set these in the Render dashboard
+      # after connecting the project.
+      - key: MONGODB_URI
+        sync: false
+      - key: BREVO_API_KEY
+        sync: false
+      - key: BREVO_SENDER_EMAIL
+        sync: false
